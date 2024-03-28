@@ -1,23 +1,62 @@
-import logo from './logo.svg';
+import {useState, userState} from 'react';
+import TextField from '@mui/material/TextField';
 import './App.css';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  
+  const registerUser = async (event) => {
+    event.preventDefault()
+      const response = await fetch('http://localhost:8000/api/users/registerUser',{
+        method:'POST',
+        headers:{
+          "Content-Type":"application/json"},
+        body:JSON.stringify({
+           name,email,password
+        })
+      })
+      const data = await response.json();
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 style={{ textAlign: 'center' }}>Register</h1>
+      <form onSubmit={registerUser}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+          />
+        </Grid>
+        <Grid item xs={3}>
+        <Button type="submit" variant="outlined">Register</Button>
+        </Grid>
+      </Grid>
+      </form>
     </div>
   );
 }
