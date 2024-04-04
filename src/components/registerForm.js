@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 
 const RegisterForm = ({
-  onSubmit,
   name,
   setName,
   email,
@@ -11,6 +10,31 @@ const RegisterForm = ({
   password,
   setPassword,
 }) => {
+  const registerUser = async (event) => {
+    event.preventDefault();
+    console.log(name, email, password);
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/users/registerUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        }
+      );
+      return { success: true, message: "Data sent to the API successfully" };
+    } catch (error) {
+      console.error("Failed to register user:", error);
+      return { success: false, message: "Failed to send data" };
+    }
+  };
+
   return (
     <div
       style={{
@@ -18,13 +42,12 @@ const RegisterForm = ({
         padding: "50px",
         maxWidth: "400px",
         width: "100%",
-       
       }}
     >
       <div>
         <h1>Register</h1>
       </div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={registerUser}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -32,7 +55,7 @@ const RegisterForm = ({
               variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              style={{ width: '300px'}}
+              style={{ width: "300px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -41,7 +64,7 @@ const RegisterForm = ({
               variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ width: '300px'}}
+              style={{ width: "300px" }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -51,7 +74,7 @@ const RegisterForm = ({
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              style={{ width: '300px'}}
+              style={{ width: "300px" }}
             />
           </Grid>
           <Grid item xs={12}>

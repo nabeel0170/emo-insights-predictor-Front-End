@@ -20,25 +20,6 @@ const Login = () => {
     setShowLoginForm(false);
   };
 
-  const registerUser = async (event) => {
-    event.preventDefault();
-    const response = await fetch(
-      "http://localhost:8000/api/users/registerUser",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      }
-    );
-    const data = await response.json();
-  };
-
   return (
     <div
       style={{
@@ -48,14 +29,13 @@ const Login = () => {
         height: "100vh",
       }}
     >
-      <div style={{ border: "1px solid #dadce0",height:'500px' }}>
+      <div style={{ border: "1px solid #dadce0", height: "500px" }}>
         <SignUpLoginSwitch
           onLoginClick={handleLoginClick}
           onRegisterClick={handleRegisterClick}
         />
-        {showRegisterForm && ( 
+        {showRegisterForm && (
           <RegisterForm
-            onSubmit={registerUser}
             name={name}
             setName={setName}
             email={email}
@@ -64,8 +44,14 @@ const Login = () => {
             setPassword={setPassword}
           />
         )}
-        {showLoginForm && <LoginForm email={email} setEmail={setEmail} password={password} />}
-      
+        {showLoginForm && (
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
+        )}
       </div>
     </div>
   );
