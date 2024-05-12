@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 
 const LoginForm = ({ email, setEmail, password, setPassword }) => {
+  const navigate = useNavigate();
   const loginUser = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
+      const loginResponse = await fetch(
         "http://localhost:8000/api/users/loginUser",
         {
           method: "POST",
@@ -20,10 +22,15 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
           }),
         }
       );
-      return {
-        success: true,
-        message: "Data sent to the API successfully to login",
-      };
+     const result = await loginResponse.json();
+     console.log(result);
+     if(result.success){
+      console.log("redirecting");
+      navigate('/home');
+     } else {
+      // If login fails, display an error message
+      alert("Login failed. Please try again.");
+    }
     } catch (error) {
       console.error("Failed to login user:", error);
       return { success: false, message: "Failed to send data" };
