@@ -29,7 +29,7 @@ const Login = () => {
         height: "100vh",
       }}
     >
-      <div style={{ border: "1px solid #dadce0", height: "500px" }}>
+      <div style={{ border: "1px solid #dadce0", height: "500px", borderRadius:"25px", }}>
         <SignUpLoginSwitch
           onLoginClick={handleLoginClick}
           onRegisterClick={handleRegisterClick}
