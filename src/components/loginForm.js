@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -6,6 +7,8 @@ import Button from "@mui/material/Button";
 
 const LoginForm = ({ email, setEmail, password, setPassword }) => {
   const navigate = useNavigate();
+  const [loginEmailError, setLoginEmailError] = useState("");
+  const [loginPasswordError, setLoginPasswordError] = useState("");
   const loginUser = async (event) => {
     event.preventDefault();
     try {
@@ -27,9 +30,12 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
      if(result.success){
       console.log("redirecting");
       navigate('/home');
-     } else {
-      // If login fails, display an error message
-      alert("Login failed. Please try again.");
+     } else if (result.message === "User not found") {
+      setLoginEmailError(result.message);
+      setLoginPasswordError(""); // Clear password error
+    } else {
+      setLoginPasswordError(result.message);
+      setLoginEmailError(""); // Clear email error
     }
     } catch (error) {
       console.error("Failed to login user:", error);
@@ -58,6 +64,8 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{ width: "300px" }}
+              error={Boolean(loginEmailError)} 
+  helperText={loginEmailError || ""} 
             />
           </Grid>
           <Grid item xs={12}>
@@ -68,6 +76,8 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               style={{ width: "300px" }}
+              error={Boolean(loginPasswordError)} 
+              helperText={loginPasswordError || ""}
             />
           </Grid>
           <Grid item xs={12}>
