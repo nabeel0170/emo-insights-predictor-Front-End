@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const LoginForm = ({ email, setEmail, password, setPassword }) => {
   const navigate = useNavigate();
@@ -44,17 +45,17 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
   };
 
   return (
-    <div
+    <Box
       style={{
         textAlign: "center",
-        padding: "50px",
-        maxWidth: "400px",
-        width: "100%",
+        display: "flex",
+        flexDirection:"column",
       }}
     >
-      <div>
+      <Box style={{display:"flex",flexDirection:"row",marginBottom:"20px",justifyContent:"center"}}>
         <h1>Login</h1>
-      </div>
+      </Box>
+      <Box style={{display:"flex",flexDirection:"row",}}>
       <form onSubmit={loginUser}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -63,7 +64,7 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
               variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ width: "300px" }}
+              style={{ maxWidth: "300px" }}
               error={Boolean(loginEmailError)} 
   helperText={loginEmailError || ""} 
             />
@@ -75,7 +76,7 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
-              style={{ width: "300px" }}
+              style={{ maxWidth: "300px" }}
               error={Boolean(loginPasswordError)} 
               helperText={loginPasswordError || ""}
             />
@@ -87,7 +88,8 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
           </Grid>
         </Grid>
       </form>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,17 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
-const RegisterForm = ({
-  name,
-  setName,
-  email,
-  setEmail,
-  password,
-  setPassword,
-}) => {
-  // State variable to hold name validation error
+const RegisterForm = ({ name, setName, email, setEmail, password, setPassword }) => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordStrength, setPasswordStrength] = useState("");
@@ -28,6 +21,7 @@ const RegisterForm = ({
       setNameError("");
     }
   };
+
   const checkPasswordStrength = (value) => {
     if (value.length > 8) {
       setPasswordStrength("Strong");
@@ -42,9 +36,7 @@ const RegisterForm = ({
     const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailFormat.test(value)) {
-      setEmailError(
-        "Please enter a valid email address (e.g., example@example.com)."
-      );
+      setEmailError("Please enter a valid email address (e.g., example@example.com).");
     } else {
       setEmailError("");
     }
@@ -54,20 +46,13 @@ const RegisterForm = ({
     event.preventDefault();
     console.log(name, email, password);
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/users/registerUser",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/users/registerUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
       return { success: true, message: "Data sent to the API successfully" };
     } catch (error) {
       console.error("Failed to register user:", error);
@@ -76,18 +61,21 @@ const RegisterForm = ({
   };
 
   return (
-    <div
+    <Box
       style={{
         textAlign: "center",
-        padding: "50px",
-        maxWidth: "400px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        maxWidth: "fit-content",
         width: "100%",
+        margin: "0 auto",
       }}
     >
-      <div>
+      <Box style={{ marginBottom: "20px" }}>
         <h1>Register</h1>
-      </div>
-      <form onSubmit={registerUser}>
+      </Box>
+      <Box component="form" onSubmit={registerUser} sx={{ width: '100%' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -98,9 +86,10 @@ const RegisterForm = ({
                 setName(e.target.value);
                 validateName(e.target.value);
               }}
-              error={Boolean(nameError)} // Set error prop based on nameError
-              helperText={nameError} // Display validation error message
-              style={{ width: "300px" }}
+              style={{ maxWidth: "300px" }}
+              error={Boolean(nameError)}
+              helperText={nameError}
+              fullWidth
             />
           </Grid>
           <Grid item xs={12}>
@@ -112,9 +101,10 @@ const RegisterForm = ({
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
               }}
-              error={Boolean(emailError)} // Set error prop based on nameError
-              helperText={emailError} // Display validation error message
-              style={{ width: "300px" }}
+              style={{ maxWidth: "300px" }}
+              error={Boolean(emailError)}
+              helperText={emailError}
+              fullWidth
             />
           </Grid>
           <Grid item xs={12}>
@@ -122,23 +112,24 @@ const RegisterForm = ({
               label="Password"
               variant="outlined"
               value={password}
+              style={{ maxWidth: "300px" }}
               onChange={(e) => {
                 setPassword(e.target.value);
                 checkPasswordStrength(e.target.value);
               }}
               helperText={passwordStrength}
               type="password"
-              style={{ width: "300px" }}
+              fullWidth
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="outlined">
+            <Button type="submit" variant="outlined" style={{ maxWidth: "300px" }}>
               Register
             </Button>
           </Grid>
         </Grid>
-      </form>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

@@ -5,19 +5,18 @@ const SignUpLoginSwitch = ({ onLoginClick, onRegisterClick }) => {
     <div
       style={{
         display: "flex",
+        flexDirection:"row",
         justifyContent: "center",
         marginTop: 40,
-        padding: 5,
-        marginLeft: "10%",
-        marginRight: "10%",
+        marginBottom: 40,
       }}
     >
-      <div style={{ width: "150px", textAlign: "center" }}>
+      <div style={{ maxWidth: "150px",width: "150px", textAlign: "center" }}>
         <Button type="submit" onClick={onLoginClick} style={{}}>
           Login
         </Button>
       </div>
-      <div style={{ width: "150px", textAlign: "center" }}>
+      <div style={{ maxWidth: "150px",width: "150px", textAlign: "center" }}>
         <Button type="submit" onClick={onRegisterClick} style={{}}>
           Register
         </Button>
