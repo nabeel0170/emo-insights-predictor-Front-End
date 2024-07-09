@@ -1,3 +1,5 @@
+
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
 const AboutApp = () => {
@@ -5,64 +7,87 @@ const AboutApp = () => {
     <Box
       style={{
         display: "flex",
-        flexDirection: "row",
         justifyContent: "center",
+        flexGrow:'1',
+        
       }}
     >
       <Box
-        style={{
+        sx={{
           border: " 2px solid #dadce0",
           borderRadius: "15px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          alignItems: "center",
-          width: "80%",
-          minHeight: "400px",
+          maxHeight:'420px',
+          maxWidth: "80%",
+          marginBottom:'20px',
           padding: "20px",
+          marginTop:'40px',
+          marginRight:'40px',
+          marginLeft:'40px',
+          '@media (min-width: 501px)': {
+            '& .MuiTypography-root': {
+              fontSize: '1.5rem',fontFamily:'Poppins' // Adjust font size for smaller screens
+            },
+          },
+          '@media (max-width: 500px)': {
+            '& .MuiTypography-root': {
+              fontSize: '0.7rem',fontFamily:'Poppins' // Adjust font size for smaller screens
+            },
+          },
+         
         }}
       >
         <Box
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "row",
+            flexGrow:'1',
             textAlign: "center",
+            
           }}
         >
-          <h2>
-            This web application harnesses the power of machine learning to
+          <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',maxWidth:'1000px'}}>
+          <Typography variant="h4">
+           <strong> This web application harnesses the power of machine learning to
             predict the emotions conveyed in textual content. Whether it's
             discerning joy, sadness, or other sentiments, our model provides
             real-time analysis to help users understand the emotional context of
-            their text.
-          </h2>
+            their text.</strong>
+          </Typography>
+          </Box>
         </Box>
 
+        <Box sx={{display:'flex',flexGrow:'1'}}>
         <Box
-          style={{
+          sx={{
             display: "flex",
             flexDirection: "column",
             textAlign: "center",
+           marginLeft:'20px',
+           marginRight:'20px'
           }}
         >
           <Box
-            style={{
+            sx={{
               display: "flex",
               flexDirection: "row",
               textAlign: "center",
             }}
           >
-            <h4>Key Features:</h4>
+            <Typography variant="h5"><strong>Key Features:</strong></Typography>
           </Box>
           <Box
-            style={{
+            sx={{
               display: "flex",
               flexDirection: "row",
-              textAlign: "center",
+              textAlign: "left",
             }}
           >
-            <ul style={{ textAlign: "left", paddingLeft: "20px" }}>
+            <Typography variant="body1">
+            <ul>
               <li>
                 <strong>Real-time Emotion Prediction:</strong> Instantly
                 predicts emotions such as happiness, sadness, anger, and more
@@ -79,7 +104,9 @@ const AboutApp = () => {
                 achieve accurate predictions.
               </li>
             </ul>
+            </Typography>
           </Box>
+        </Box>
         </Box>
       </Box>
     </Box>

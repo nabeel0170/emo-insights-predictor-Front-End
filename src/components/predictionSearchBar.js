@@ -3,21 +3,23 @@ import TextField from "@mui/material/TextField";
 
 const PredictionSearchBar = () => {
   return (
-    <Box
-      style={{
-        display: "flex",
-        flexDirection: "row",
-
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: "50px",
-      }}
-    >
-      <TextField
-        label="Type and press enter"
-        style={{ maxWidth: "550px", width: "450px", margin: "30px" }}
-      />
-    </Box>
+    <>
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "50px",
+        }}
+      >
+        <TextField
+          label="Type and press enter"
+          sx={{ maxWidth: "600px" }}
+          fullWidth
+        />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>Prediction</Box>
+    </>
   );
 };
 
