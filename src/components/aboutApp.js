@@ -20,7 +20,6 @@ const AboutApp = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          maxHeight:'420px',
           maxWidth: "80%",
           marginBottom:'20px',
           padding: "20px",

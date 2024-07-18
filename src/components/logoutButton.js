@@ -7,8 +7,11 @@ import { MenuItem as BaseMenuItem, menuItemClasses } from "@mui/base/MenuItem";
 import { styled } from "@mui/system";
 import { CssTransition } from "@mui/base/Transitions";
 import { PopupContext } from "@mui/base/Unstable_Popup";
+import { Box, ListItemIcon, Typography } from "@mui/material";
+import { Logout, Settings } from "@mui/icons-material";
 
-export default function LogoutButton() {
+export default function LogoutButton({ userName }) {
+  const name = userName;
   const logOut = () => {
     return () => {
       console.log(`logOut`);
@@ -21,16 +24,34 @@ export default function LogoutButton() {
   };
 
   return (
-    <Dropdown>
-      <MenuButton>My account</MenuButton>
-      <Menu
-        slots={{ listbox: AnimatedListbox }}
-        style={{ display: "block", position: "fixed" }}
-      >
-        <MenuItem onClick={logOut()}>Reset Password</MenuItem>
-        <MenuItem onClick={resetPassword()}>Log out</MenuItem>
-      </Menu>
-    </Dropdown>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Typography sx={{ padding: "5px" }}>Hey {name}</Typography>
+      <Box>
+        <Dropdown>
+          <MenuButton>My account</MenuButton>
+          <Menu
+            slots={{ listbox: AnimatedListbox }}
+            style={{ display: "block", position: "fixed" }}
+          >
+            <MenuItem onClick={resetPassword()} sx={{alignItems:'center',display:'flex'}}>
+              <ListItemIcon sx={{}}>
+                <Settings fontSize="small"/>
+              </ListItemIcon>
+         
+              Reset Password
+            
+             
+            </MenuItem>
+            <MenuItem onClick={logOut()} sx={{alignItems:'center',display:'flex'}}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+        </Dropdown>
+      </Box>
+    </Box>
   );
 }
 

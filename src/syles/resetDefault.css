@@ -6,4 +6,8 @@ body {
   padding: 0;
   height: 100% !;
   font-family: Poppins;
+  position: fixed !important;
+  width: 100%;
+  
 }
+

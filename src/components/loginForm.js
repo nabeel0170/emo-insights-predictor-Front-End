@@ -2,19 +2,23 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Cookies from "js-cookie";
 
-const LoginForm = ({ email, setEmail, password, setPassword }) => {
+const LoginForm = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   const [loginEmailError, setLoginEmailError] = useState("");
   const [loginPasswordError, setLoginPasswordError] = useState("");
   const loginUser = async (event) => {
     event.preventDefault();
     try {
       const loginResponse = await fetch(
-        "http://localhost:8000/api/users/loginUser",
+        "http:///192.168.1.3:8000/api/users/loginUser",
         {
           method: "POST",
           headers: {
@@ -26,18 +30,28 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
           }),
         }
       );
-     const result = await loginResponse.json();
-     console.log(result);
-     if(result.success){
-      console.log("redirecting");
-      navigate('/home');
-     } else if (result.message === "User not found") {
-      setLoginEmailError(result.message);
-      setLoginPasswordError(""); // Clear password error
-    } else {
-      setLoginPasswordError(result.message);
-      setLoginEmailError(""); // Clear email error
-    }
+      const result = await loginResponse.json();
+      const token = result.token;
+      const expires = new Date(new Date().getTime() + 30 * 1000); // 30 seconds from now
+      Cookies.set("token", token, {
+        expires: expires,
+        secure: true,
+      });
+      switch (true) {
+        case result.success:
+          navigate("/home");
+          break;
+
+        case result.message === "User not found":
+          setLoginEmailError(result.message);
+          setLoginPasswordError(""); // Clear password error
+          break;
+
+        default:
+          setLoginPasswordError(result.message);
+          setLoginEmailError(""); // Clear email error
+          break;
+      }
     } catch (error) {
       console.error("Failed to login user:", error);
       return { success: false, message: "Failed to send data" };
@@ -49,45 +63,52 @@ const LoginForm = ({ email, setEmail, password, setPassword }) => {
       style={{
         textAlign: "center",
         display: "flex",
-        flexDirection:"column",
+        flexDirection: "column",
       }}
     >
-      <Box style={{display:"flex",flexDirection:"row",marginBottom:"20px",justifyContent:"center"}}>
+      <Box
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginBottom: "20px",
+          justifyContent: "center",
+        }}
+      >
         <h1>Login</h1>
       </Box>
-      <Box style={{display:"flex",flexDirection:"row",}}>
-      <form onSubmit={loginUser}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Email"
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ maxWidth: "300px" }}
-              error={Boolean(loginEmailError)} 
-  helperText={loginEmailError || ""} 
-            />
+      <Box style={{ display: "flex", flexDirection: "row" }}>
+        <form onSubmit={loginUser}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ maxWidth: "300px" }}
+                error={Boolean(loginEmailError)}
+                helperText={loginEmailError || ""}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Password"
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                style={{ maxWidth: "300px" }}
+                error={Boolean(loginPasswordError)}
+                helperText={loginPasswordError || ""}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="outlined">
+                Login
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Password"
-              variant="outlined"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              style={{ maxWidth: "300px" }}
-              error={Boolean(loginPasswordError)} 
-              helperText={loginPasswordError || ""}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="outlined">
-              Login
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
       </Box>
     </Box>
   );

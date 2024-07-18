@@ -1,41 +1,51 @@
 import {
   Box,
-  Button,
   Drawer,
   List,
   ListItemButton,
   ListItemText,
   IconButton,
+  Toolbar,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 const SideDrawer = ({ open, toggleDrawer, handleClick }) => {
+  const mdScreen = useMediaQuery((theme) => theme.breakpoints.up("md"));
   return (
     <Drawer
       open={open}
       onClose={toggleDrawer}
+      variant="persistent"
       sx={{
-        "& .MuiDrawer-paper": {
-          maxWidth: "300px",
-          minWidth: "150px",
-          width: "200px",
-          overflowY: "scroll",
+        width: mdScreen ? "300px" : "100%",
+
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: mdScreen ? "300px" : "100%",
+          boxSizing: "border-box",
         },
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <IconButton onClick={handleClick}>
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <List sx={{ display: "flex", bgcolor: "background.paper" }}>
-        <ListItemButton>
-          <ListItemText primary="heading" secondary="date"></ListItemText>
-        </ListItemButton>
-        <IconButton>
-          <DeleteIcon />
-        </IconButton>
+      <Toolbar />
+      <List
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.paper",
+          overflowY: "auto",
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <ListItemButton>
+            <ListItemText primary="heading" secondary="date"></ListItemText>
+          </ListItemButton>
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
       </List>
     </Drawer>
   );
