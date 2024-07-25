@@ -18,7 +18,7 @@ const LoginForm = () => {
     event.preventDefault();
     try {
       const loginResponse = await fetch(
-        "http:///192.168.1.3:8000/api/users/loginUser",
+        "http:///localhost:8000/api/users/loginUser",
         {
           method: "POST",
           headers: {

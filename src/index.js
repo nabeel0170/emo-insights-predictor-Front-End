@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from 'react-auth-kit';
 import createStore from 'react-auth-kit/createStore';
 
+
 const store = createStore({
     authName:'_auth',
     authType:'cookie',

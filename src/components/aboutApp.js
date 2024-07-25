@@ -89,7 +89,7 @@ const AboutApp = () => {
             <ul>
               <li>
                 <strong>Real-time Emotion Prediction:</strong> Instantly
-                predicts emotions such as happiness, sadness, anger, and more
+                predicts emotions such as joy, sadness, anger, and more
                 based on the input text.
               </li>
               <li>
