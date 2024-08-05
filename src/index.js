@@ -11,6 +11,7 @@ const store = createStore({
     authType:'cookie',
     cookieDomain: window.location.hostname,
     cookieSecure: window.location.protocol === 'https:',
+    authTime: 10080
   });
 
 const root = createRoot(document.getElementById('root'));

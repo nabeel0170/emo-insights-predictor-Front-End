@@ -9,17 +9,13 @@ import { CssTransition } from "@mui/base/Transitions";
 import { PopupContext } from "@mui/base/Unstable_Popup";
 import { Box, ListItemIcon, Typography } from "@mui/material";
 import { Logout, Settings } from "@mui/icons-material";
+import ResetPasswordModal from "./resetPasswordModal";
 
 export default function LogoutButton({ userName }) {
   const name = userName;
   const logOut = () => {
     return () => {
       console.log(`logOut`);
-    };
-  };
-  const resetPassword = () => {
-    return () => {
-      console.log(`Reset Password`);
     };
   };
 
@@ -33,16 +29,13 @@ export default function LogoutButton({ userName }) {
             slots={{ listbox: AnimatedListbox }}
             style={{ display: "block", position: "fixed" }}
           >
-            <MenuItem onClick={resetPassword()} sx={{alignItems:'center',display:'flex'}}>
-              <ListItemIcon sx={{}}>
-                <Settings fontSize="small"/>
-              </ListItemIcon>
-         
-              Reset Password
-            
-             
+            <MenuItem sx={{ alignItems: "center", display: "flex" }}>
+              <ResetPasswordModal />
             </MenuItem>
-            <MenuItem onClick={logOut()} sx={{alignItems:'center',display:'flex'}}>
+            <MenuItem
+              onClick={logOut()}
+              sx={{ alignItems: "center", display: "flex" }}
+            >
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>

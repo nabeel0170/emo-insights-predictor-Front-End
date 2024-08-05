@@ -8,7 +8,6 @@ import { useState } from "react";
 
 const Home = () => {
   const [open, setOpen] = useState(false);
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -22,7 +21,8 @@ const Home = () => {
         overflow: "auto",
       }}
     >
-     <NavBar handleClick={toggleDrawer} />
+      <NavBar handleClick={toggleDrawer} />
+      {/* <ResetPasswordModal/> */}
       <SideDrawer
         open={open}
         toggleDrawer={toggleDrawer}
@@ -34,7 +34,10 @@ const Home = () => {
           flexGrow: 1,
           transition: "margin-left 0.3s",
           marginLeft: open ? `300px` : 0,
-          display: { xs: open ? "none" : "block", sm: open ? "block" : "block", },
+          display: {
+            xs: open ? "none" : "block",
+            sm: open ? "block" : "block",
+          },
         }}
       >
         <Box

@@ -56,7 +56,10 @@ console.log(apiUrl);
           sx={{ maxWidth: "600px" }}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
+          type="text"
           fullWidth
+          autoComplete="off"
+      
         />
       </Box>
       <Box sx={{ display: "flex", justifyContent: "center" }}>{prediction}</Box>
